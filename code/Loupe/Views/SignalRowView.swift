@@ -143,6 +143,9 @@ struct SignalRowView: View {
             ForEach(entries, id: \.self) { entry in
                 Text(entry.label)
                     .font(.system(.caption, design: .monospaced))
+                    .lineLimit(nil)
+                    .multilineTextAlignment(.leading)
+                    .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
                     .background(.fill.tertiary, in: Capsule())
@@ -196,7 +199,8 @@ struct FlowLayout: Layout {
     var spacing: CGFloat = 6
 
     func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        let rows = computeRows(proposal: proposal, subviews: subviews)
+        let maxWidth = proposal.width ?? .infinity
+        let rows = computeRows(maxWidth: maxWidth, subviews: subviews)
         guard !rows.isEmpty else { return .zero }
         let height = rows.reduce(CGFloat.zero) { total, row in
             total + row.height + (total > 0 ? spacing : 0)
@@ -206,14 +210,16 @@ struct FlowLayout: Layout {
     }
 
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        let rows = computeRows(proposal: proposal, subviews: subviews)
+        let rows = computeRows(maxWidth: bounds.width, subviews: subviews)
         var y = bounds.minY
         var subviewIndex = 0
         for row in rows {
             var x = bounds.minX
-            for _ in 0..<row.count {
-                let size = subviews[subviewIndex].sizeThatFits(.unspecified)
-                subviews[subviewIndex].place(at: CGPoint(x: x, y: y), proposal: .unspecified)
+            for size in row.sizes {
+                subviews[subviewIndex].place(
+                    at: CGPoint(x: x, y: y),
+                    proposal: ProposedViewSize(width: size.width, height: size.height)
+                )
                 x += size.width + spacing
                 subviewIndex += 1
             }
@@ -222,31 +228,38 @@ struct FlowLayout: Layout {
     }
 
     private struct Row {
-        var count: Int
+        var sizes: [CGSize]
         var width: CGFloat
         var height: CGFloat
     }
 
-    private func computeRows(proposal: ProposedViewSize, subviews: Subviews) -> [Row] {
-        let maxWidth = proposal.width ?? .infinity
+    private func computeRows(maxWidth: CGFloat, subviews: Subviews) -> [Row] {
         var rows: [Row] = []
-        var currentRow = Row(count: 0, width: 0, height: 0)
+        var currentRow = Row(sizes: [], width: 0, height: 0)
 
         for subview in subviews {
-            let size = subview.sizeThatFits(.unspecified)
-            let newWidth = currentRow.width + (currentRow.count > 0 ? spacing : 0) + size.width
-            if currentRow.count > 0 && newWidth > maxWidth {
+            let size = sizeThatFits(subview: subview, maxWidth: maxWidth)
+            let newWidth = currentRow.width + (currentRow.sizes.isEmpty ? 0 : spacing) + size.width
+            if !currentRow.sizes.isEmpty && newWidth > maxWidth {
                 rows.append(currentRow)
-                currentRow = Row(count: 1, width: size.width, height: size.height)
+                currentRow = Row(sizes: [size], width: size.width, height: size.height)
             } else {
-                currentRow.count += 1
+                currentRow.sizes.append(size)
                 currentRow.width = newWidth
                 currentRow.height = max(currentRow.height, size.height)
             }
         }
-        if currentRow.count > 0 {
+        if !currentRow.sizes.isEmpty {
             rows.append(currentRow)
         }
         return rows
+    }
+
+    private func sizeThatFits(subview: LayoutSubview, maxWidth: CGFloat) -> CGSize {
+        guard maxWidth.isFinite else {
+            return subview.sizeThatFits(.unspecified)
+        }
+        let size = subview.sizeThatFits(ProposedViewSize(width: maxWidth, height: nil))
+        return CGSize(width: min(size.width, maxWidth), height: size.height)
     }
 }
