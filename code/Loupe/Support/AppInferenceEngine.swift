@@ -24,7 +24,11 @@ enum AppInferenceEngine {
             id: "inference.privacy",
             symbol: "lock.shield",
             headline: String(localized: "You seem to care about your privacy.", comment: "Behavioral inference shown as a card on the fingerprint summary sheet — derived from installed apps. Topic: privacy."),
-            apps: ["Signal", "ProtonMail", "ProtonVPN", "DuckDuckGo", "1Password", "LastPass"],
+            apps: [
+                "Signal", "ProtonMail", "ProtonVPN", "DuckDuckGo",
+                "1Password", "LastPass", "Bitwarden",
+                "Shadowrocket", "Surge",
+            ],
             threshold: 2
         ),
         Category(
@@ -52,7 +56,7 @@ enum AppInferenceEngine {
             id: "inference.finance",
             symbol: "banknote",
             headline: String(localized: "You may be interested in finance or investing.", comment: "Behavioral inference shown as a card on the fingerprint summary sheet — derived from installed apps. Topic: finance / investing."),
-            apps: ["Coinbase", "PayPal", "Venmo", "Cash App"],
+            apps: ["Coinbase", "PayPal", "Venmo", "Cash App", "Alipay"],
             threshold: 2
         ),
         Category(
@@ -76,8 +80,16 @@ enum AppInferenceEngine {
             apps: [
                 "Facebook", "Instagram", "TikTok", "Snapchat", "X",
                 "Threads", "Reddit", "Pinterest", "LinkedIn", "YouTube",
+                "Weibo", "Douyin", "Xiaohongshu",
             ],
             threshold: 3
+        ),
+        Category(
+            id: "inference.china",
+            symbol: "location.fill",
+            headline: String(localized: "You may live in China.", comment: "Behavioral inference shown as a card on the fingerprint summary sheet — derived from installed apps. Topic: chinese."),
+            apps: ["WeChat", "QQ", "Weibo", "Alipay", "Taobao", "Douyin", "Xiaohongshu", "Netease Music"],
+            threshold: 2
         ),
     ]
 

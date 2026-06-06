@@ -68,6 +68,17 @@ struct InstalledAppsProvider: SignalProvider {
         Probe(name: "Steam", scheme: "steam"),
         Probe(name: "Coinbase", scheme: "coinbase"),
         Probe(name: "ProtonVPN", scheme: "protonvpn"),
+        Probe(name: "WeChat", scheme: "weixin"),
+        Probe(name: "QQ", scheme: "mqq"),
+        Probe(name: "Weibo", scheme: "weibo"),
+        Probe(name: "Alipay", scheme: "alipay"),
+        Probe(name: "Taobao", scheme: "taobao"),
+        Probe(name: "Douyin", scheme: "snssdk1128"),
+        Probe(name: "Xiaohongshu", scheme: "xhsdiscover"),
+        Probe(name: "Netease Music", scheme: "orpheus"),
+        Probe(name: "Shadowrocket", scheme: "shadowrocket"),
+        Probe(name: "Surge", scheme: "surge"),
+        Probe(name: "Bitwarden", scheme: "bitwarden"),
     ]
 
     func collect() async -> [FingerprintSignal] {
