@@ -55,12 +55,6 @@
 		<string>coinbase</string>
 		<string>protonvpn</string>
 	</array>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>Loupe reads music library counts only. Nothing is played back.</string>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Loupe runs a brief Bluetooth LE scan to count nearby devices.</string>
 	<key>NSBonjourServices</key>
 	<array>
 		<string>_airplay._tcp</string>
@@ -109,23 +103,5 @@
 		<string>_dns-sd._udp</string>
 		<string>_loupe-probe._tcp</string>
 	</array>
-	<key>NSCalendarsFullAccessUsageDescription</key>
-	<string>Loupe counts calendars and events. Titles and notes are not read.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Loupe reads camera capabilities. The sensor is never opened.</string>
-	<key>NSContactsUsageDescription</key>
-	<string>Loupe counts contacts only. Names and details are not displayed.</string>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>Loupe runs a brief Bonjour discovery to count local services.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Loupe reads one location fix for the on-device demo.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Loupe reads microphone routing info. No audio is recorded.</string>
-	<key>NSMotionUsageDescription</key>
-	<string>Loupe samples motion sensors briefly. Nothing is sent anywhere.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Loupe counts photo library items. Image data is never read.</string>
-	<key>NSRemindersFullAccessUsageDescription</key>
-	<string>Loupe counts reminder lists only. Titles and notes are not displayed.</string>
 </dict>
 </plist>
