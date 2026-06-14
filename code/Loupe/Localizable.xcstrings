@@ -32496,7 +32496,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "封闭模式"
+            "value" : "锁定模式"
           }
         },
         "zh-Hant" : {
@@ -32597,7 +32597,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "这台 %@ 已开启封闭模式。"
+            "value" : "这台 %@ 已开启锁定模式。"
           }
         },
         "zh-Hant" : {
@@ -32698,7 +32698,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "封闭模式并不常见，需要手动开启。"
+            "value" : "锁定模式并不常见，需要手动开启。"
           }
         },
         "zh-Hant" : {
@@ -62328,7 +62328,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你是否在 %@ 上开启了封闭模式。"
+            "value" : "你是否在 %@ 上开启了锁定模式。"
           }
         },
         "zh-Hant" : {
