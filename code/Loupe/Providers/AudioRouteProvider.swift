@@ -125,8 +125,8 @@ final class AudioRouteProvider: SignalProvider, LiveSignalProvider {
                 rationale: String(localized: "DAC and ADC latency for the current audio route.", comment: "Signal card rationale beneath the DAC / ADC latency value."),
                 displayHint: .compound,
                 entries: [
-                    SignalEntry(label: "Output", value: String(format: "%.6f", outLat)),
-                    SignalEntry(label: "Input", value: String(format: "%.6f", inLat)),
+                    SignalEntry(label: String(localized: "Output", comment: "Latency sub-label in the Audio category — output (DAC) latency in seconds."), value: String(format: "%.6f", outLat)),
+                    SignalEntry(label: String(localized: "Input", comment: "Latency sub-label in the Audio category — input (ADC) latency in seconds."), value: String(format: "%.6f", inLat)),
                 ]))
         }
 

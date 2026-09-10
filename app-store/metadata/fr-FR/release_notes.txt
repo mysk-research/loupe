@@ -1,0 +1,5 @@
+- Photos vous demande désormais votre autorisation avant de rechercher les noms de lieu de vos photos.
+- Nouvelles langues : coréen, polonais, italien et vietnamien.
+- Correction du schéma d'URL de Steam, merci à @Solarphlare.
+- Petites améliorations de l'interface.
+- Petites améliorations de la localisation.

@@ -73,15 +73,6 @@
 			);
 			sourceTree = "<group>";
 		};
-		8FCF160000000000000000C0 /* Config */ = {
-			isa = PBXGroup;
-			children = (
-				8FCF160000000000000000C1 /* Signing.xcconfig */,
-				8FCF160000000000000000C2 /* Signing.local.xcconfig.example */,
-			);
-			path = Config;
-			sourceTree = "<group>";
-		};
 		8FC411352F957D0F00097695 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +80,15 @@
 				8F68A6FE2FCCB045005956EC /* LoupeUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8FCF160000000000000000C0 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				8FCF160000000000000000C1 /* Signing.xcconfig */,
+				8FCF160000000000000000C2 /* Signing.local.xcconfig.example */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,12 +162,16 @@
 				de,
 				es,
 				fr,
+				it,
 				ja,
+				ko,
+				pl,
 				"pt-BR",
 				"pt-PT",
 				ru,
 				tr,
 				uk,
+				vi,
 				"zh-Hans",
 				"zh-Hant",
 			);
@@ -428,7 +432,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(LOUPE_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -482,7 +486,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(LOUPE_BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;

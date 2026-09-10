@@ -40,7 +40,7 @@ final class DisplayProvider: SignalProvider, LiveSignalProvider {
                     "unavailable",
                     category: category,
                     name: String(localized: "Display", comment: "Signal card name in the Display category — placeholder shown when no active window scene is available."),
-                    value: "No active window scene",
+                    value: String(localized: "No active window scene", comment: "Placeholder value shown when display attributes are unavailable because the app is not attached to a scene."),
                     rationale: String(localized: "Display attributes are unavailable because the app is not attached to a scene.", comment: "Signal card rationale beneath the Display placeholder."))
             ]
         }
@@ -109,7 +109,7 @@ final class DisplayProvider: SignalProvider, LiveSignalProvider {
                 category: category,
                 name: String(localized: "preferredContentSizeCategory", comment: "Signal card name in the Display category — UITraitCollection.preferredContentSizeCategory (Dynamic Type size)."),
                 value: info.preferredContentSizeCategory,
-                rationale: String(localized: "Dynamic Type size — the text-size preference you've set in Settings.", comment: "Signal card rationale beneath the preferredContentSizeCategory value.")))
+                rationale: String(localized: "Dynamic Type size: the text-size preference you've set in Settings.", comment: "Signal card rationale beneath the preferredContentSizeCategory value.")))
         let insets = info.safeAreaInsets
         signals.append(
             .make(
@@ -120,10 +120,10 @@ final class DisplayProvider: SignalProvider, LiveSignalProvider {
                 rationale: String(localized: "Inset values shaped by the notch or Dynamic Island. Varies by device chassis.", comment: "Signal card rationale beneath the safeAreaInsets value."),
                 displayHint: .keyValue,
                 entries: [
-                    SignalEntry(label: "top", value: "\(insets.top)"),
-                    SignalEntry(label: "left", value: "\(insets.left)"),
-                    SignalEntry(label: "bottom", value: "\(insets.bottom)"),
-                    SignalEntry(label: "right", value: "\(insets.right)"),
+                    SignalEntry(label: String(localized: "top", comment: "Safe-area sub-label in the Display category — top inset."), value: "\(insets.top)"),
+                    SignalEntry(label: String(localized: "left", comment: "Safe-area sub-label in the Display category — left inset."), value: "\(insets.left)"),
+                    SignalEntry(label: String(localized: "bottom", comment: "Safe-area sub-label in the Display category — bottom inset."), value: "\(insets.bottom)"),
+                    SignalEntry(label: String(localized: "right", comment: "Safe-area sub-label in the Display category — right inset."), value: "\(insets.right)"),
                 ]))
         return signals
     }

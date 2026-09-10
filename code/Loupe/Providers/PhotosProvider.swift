@@ -20,6 +20,46 @@ struct PhotosProvider: SignalProvider {
         let images = PHAsset.fetchAssets(with: .image, options: nil).count
         let videos = PHAsset.fetchAssets(with: .video, options: nil).count
         let audio = PHAsset.fetchAssets(with: .audio, options: nil).count
+        
+        let locationScan = await scanLocations()
+        let lookupSkipped = !CollectionConsent.photosGeocoding.isEnabled && locationScan.geotagged > 0
+        let notLookedUp = String(localized: "(not looked up)", comment: "Placeholder value shown on the Photos Recent/Frequent locations cards when place-name lookup is turned off.")
+        signals.append(
+            .make(
+                "geotaggedCount",
+                category: category,
+                name: String(localized: "Geotagged photos", comment: "Signal card name in the Photos category — count of photos/videos with embedded GPS coordinates."),
+                value: String(locationScan.geotagged),
+                rationale: String(localized: "Photos and videos with embedded GPS coordinates.", comment: "Signal card rationale beneath the Geotagged photos value.")))
+        let recentRationale = String(localized: "Locations from the most recently taken geotagged photos.", comment: "Signal card rationale beneath the Recent locations value.")
+        signals.append(
+            .make(
+                "recentLocations",
+                category: category,
+                name: String(localized: "Recent locations", comment: "Signal card name in the Photos category — locations from the most recently taken geotagged photos."),
+                value: locationScan.recent.isEmpty
+                    ? (lookupSkipped
+                        ? notLookedUp
+                        : String(localized: "(none)", comment: "Placeholder value shown for the Recent locations card when no geotagged photos were found."))
+                    : locationScan.recent,
+                rationale: recentRationale,
+                displayHint: locationScan.recentEntries.isEmpty ? .plain : .tags,
+                entries: locationScan.recentEntries.isEmpty ? nil : locationScan.recentEntries))
+        let frequentRationale = String(localized: "Most common locations found across all geotagged photos.", comment: "Signal card rationale beneath the Frequent locations value.")
+        signals.append(
+            .make(
+                "frequentLocations",
+                category: category,
+                name: String(localized: "Frequent locations", comment: "Signal card name in the Photos category — most common locations across all geotagged photos."),
+                value: locationScan.frequent.isEmpty
+                    ? (lookupSkipped
+                        ? notLookedUp
+                        : String(localized: "(none)", comment: "Placeholder value shown for the Frequent locations card when no geotagged photos were found."))
+                    : locationScan.frequent,
+                rationale: frequentRationale,
+                displayHint: locationScan.frequentEntries.isEmpty ? .plain : .keyValue,
+                entries: locationScan.frequentEntries.isEmpty ? nil : locationScan.frequentEntries))
+
         signals.append(
             .make(
                 "imageCount",
@@ -67,37 +107,6 @@ struct PhotosProvider: SignalProvider {
                 value: String(sharedAlbums),
                 rationale: String(localized: "Shared iCloud album count.", comment: "Signal card rationale beneath the Shared albums value.")))
 
-        let locationScan = await scanLocations()
-        signals.append(
-            .make(
-                "geotaggedCount",
-                category: category,
-                name: String(localized: "Geotagged photos", comment: "Signal card name in the Photos category — count of photos/videos with embedded GPS coordinates."),
-                value: String(locationScan.geotagged),
-                rationale: String(localized: "Photos and videos with embedded GPS coordinates.", comment: "Signal card rationale beneath the Geotagged photos value.")))
-        signals.append(
-            .make(
-                "recentLocations",
-                category: category,
-                name: String(localized: "Recent locations", comment: "Signal card name in the Photos category — locations from the most recently taken geotagged photos."),
-                value: locationScan.recent.isEmpty
-                    ? String(localized: "(none)", comment: "Placeholder value shown for the Recent locations card when no geotagged photos were found.")
-                    : locationScan.recent,
-                rationale: String(localized: "Locations from the most recently taken geotagged photos.", comment: "Signal card rationale beneath the Recent locations value."),
-                displayHint: locationScan.recentEntries.isEmpty ? .plain : .tags,
-                entries: locationScan.recentEntries.isEmpty ? nil : locationScan.recentEntries))
-        signals.append(
-            .make(
-                "frequentLocations",
-                category: category,
-                name: String(localized: "Frequent locations", comment: "Signal card name in the Photos category — most common locations across all geotagged photos."),
-                value: locationScan.frequent.isEmpty
-                    ? String(localized: "(none)", comment: "Placeholder value shown for the Frequent locations card when no geotagged photos were found.")
-                    : locationScan.frequent,
-                rationale: String(localized: "Most common locations found across all geotagged photos.", comment: "Signal card rationale beneath the Frequent locations value."),
-                displayHint: locationScan.frequentEntries.isEmpty ? .plain : .keyValue,
-                entries: locationScan.frequentEntries.isEmpty ? nil : locationScan.frequentEntries))
-
         return signals
     }
 
@@ -140,11 +149,15 @@ struct PhotosProvider: SignalProvider {
         let keysToGeocode = Set(recentTop + topFrequent)
 
         var names: [GridKey: String] = [:]
-        let geocoder = CLGeocoder()
-        for key in keysToGeocode {
-            guard let loc = clusterRepresentative[key] else { continue }
-            if let placemark = try? await geocoder.reverseGeocodeLocation(loc).first {
-                names[key] = Self.formatPlacemark(placemark)
+        // Reverse geocoding sends coordinates to an Apple service, so it
+        // only runs once the user has agreed.
+        if CollectionConsent.photosGeocoding.isEnabled {
+            let geocoder = CLGeocoder()
+            for key in keysToGeocode {
+                guard let loc = clusterRepresentative[key] else { continue }
+                if let placemark = try? await geocoder.reverseGeocodeLocation(loc).first {
+                    names[key] = Self.formatPlacemark(placemark)
+                }
             }
         }
 

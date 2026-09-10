@@ -1,0 +1,5 @@
+- Zdjęcia proszą teraz o Twoją zgodę, zanim wyszukają nazwy miejsc dla lokalizacji Twoich zdjęć.
+- Nowe języki: koreański, polski, włoski i wietnamski.
+- Naprawiono schemat adresu URL Steam, dzięki @Solarphlare.
+- Drobne ulepszenia interfejsu.
+- Drobne ulepszenia lokalizacji.

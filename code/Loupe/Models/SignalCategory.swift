@@ -176,4 +176,13 @@ enum SignalCategory: String, Codable, Sendable, CaseIterable, Identifiable, Hash
         default: return nil
         }
     }
+
+    /// An app-level consent the category asks for before part of its
+    /// collection may run, beyond the iOS permission.
+    var collectionConsent: CollectionConsent? {
+        switch self {
+        case .photos: return .photosGeocoding
+        default: return nil
+        }
+    }
 }

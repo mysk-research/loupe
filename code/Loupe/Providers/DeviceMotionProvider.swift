@@ -200,9 +200,9 @@ final class DeviceMotionProvider: SignalProvider, LiveSignalProvider {
                 rationale: attitudeRationale,
                 displayHint: .axis,
                 entries: [
-                    SignalEntry(label: "Roll", value: String(format: "%+.2f", roll)),
-                    SignalEntry(label: "Pitch", value: String(format: "%+.2f", pitch)),
-                    SignalEntry(label: "Yaw", value: String(format: "%+.2f", yaw)),
+                    SignalEntry(label: String(localized: "Roll", comment: "Attitude sub-label in the Device Motion category — roll axis in degrees."), value: String(format: "%+.2f", roll)),
+                    SignalEntry(label: String(localized: "Pitch", comment: "Attitude sub-label in the Device Motion category — pitch axis in degrees."), value: String(format: "%+.2f", pitch)),
+                    SignalEntry(label: String(localized: "Yaw", comment: "Attitude sub-label in the Device Motion category — yaw axis in degrees."), value: String(format: "%+.2f", yaw)),
                 ]))
 
         let gravity = sample.gravity
@@ -242,7 +242,7 @@ final class DeviceMotionProvider: SignalProvider, LiveSignalProvider {
 
         let field = sample.magneticField
         var calEntries = axisEntries(x: field.field.x, y: field.field.y, z: field.field.z, decimals: 2)
-        calEntries.append(SignalEntry(label: "Acc", value: String(field.accuracy.rawValue)))
+        calEntries.append(SignalEntry(label: String(localized: "Acc", comment: "Magnetic-field sub-label in the Device Motion category — abbreviation for calibration accuracy."), value: String(field.accuracy.rawValue)))
         signals.append(
             .make(
                 "magneticFieldCalibrated",

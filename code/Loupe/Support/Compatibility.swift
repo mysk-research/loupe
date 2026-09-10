@@ -44,4 +44,36 @@ extension View {
             self
         }
     }
+
+    /// Marks this view as the source of a zoom transition when the matching
+    /// destination is presented. No-op below iOS 18 and on platforms where
+    /// the zoom navigation transition is unavailable (e.g. macOS).
+    @ViewBuilder
+    func compatibleZoomTransitionSource<ID: Hashable>(id: ID, in namespace: Namespace.ID) -> some View {
+        #if os(iOS)
+        if #available(iOS 18.0, *) {
+            matchedTransitionSource(id: id, in: namespace)
+        } else {
+            self
+        }
+        #else
+        self
+        #endif
+    }
+
+    /// Applies a zoom navigation transition originating from the matching
+    /// source view. No-op below iOS 18 and on platforms where the zoom
+    /// navigation transition is unavailable (e.g. macOS).
+    @ViewBuilder
+    func compatibleZoomNavigationTransition<ID: Hashable>(sourceID: ID, in namespace: Namespace.ID) -> some View {
+        #if os(iOS)
+        if #available(iOS 18.0, *) {
+            navigationTransition(.zoom(sourceID: sourceID, in: namespace))
+        } else {
+            self
+        }
+        #else
+        self
+        #endif
+    }
 }

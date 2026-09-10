@@ -1,0 +1,5 @@
+- Agora o Fotos pede sua permissão antes de buscar os nomes dos lugares das suas fotos.
+- Novos idiomas: coreano, polonês, italiano e vietnamita.
+- Corrigido o esquema de URL do Steam, graças a @Solarphlare.
+- Pequenas melhorias na interface.
+- Pequenas melhorias na localização.

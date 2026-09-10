@@ -39,7 +39,7 @@ struct LocaleProvider: SignalProvider {
                 category: category,
                 name: String(localized: "Hour cycle", comment: "Signal card name in the Locale & Region category — Locale.hourCycle (12h or 24h preference)."),
                 value: locale.hourCycle.rawValue,
-                rationale: String(localized: "Your preferred time format — 12-hour or 24-hour.", comment: "Signal card rationale beneath the Hour cycle value.")))
+                rationale: String(localized: "Your preferred time format: 12-hour or 24-hour.", comment: "Signal card rationale beneath the Hour cycle value.")))
         let prefLanguages = Locale.preferredLanguages
         signals.append(
             .make(

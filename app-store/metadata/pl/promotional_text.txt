@@ -1,0 +1,1 @@
+Przewodnik po danych, które każda aplikacja może po cichu odczytać o tobie. Zobacz, co jest ujawniane, dlaczego cię identyfikuje, i zdecyduj, co z tym zrobić.

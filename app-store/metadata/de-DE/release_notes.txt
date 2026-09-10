@@ -1,0 +1,5 @@
+- Fotos fragt jetzt nach deiner Erlaubnis, bevor Ortsnamen für deine Fotostandorte nachgeschlagen werden.
+- Neue Sprachen: Koreanisch, Polnisch, Italienisch und Vietnamesisch.
+- Steam-URL-Schema korrigiert, danke an @Solarphlare.
+- Kleine Verbesserungen an der Oberfläche.
+- Kleine Verbesserungen an den Übersetzungen.

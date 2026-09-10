@@ -42,3 +42,7 @@ fastlane/screenshots/
 fastlane/.env
 *.p8
 .env
+
+# Bundler (gems installed locally for fastlane)
+.bundle/
+vendor/

@@ -1,0 +1,5 @@
+- Fotoğraflar artık fotoğraf konumlarınızın yer adlarını aramadan önce izninizi istiyor.
+- Yeni dil desteği: Korece, Lehçe, İtalyanca ve Vietnamca.
+- Steam URL şeması düzeltildi, @Solarphlare sayesinde.
+- Arayüzde küçük iyileştirmeler.
+- Yerelleştirmede küçük iyileştirmeler.

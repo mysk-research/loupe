@@ -1,0 +1,25 @@
+Zastanawiałeś się kiedyś, jak reklamodawcy rozpoznają cię w różnych aplikacjach i na stronach? Zwykle chodzi o fingerprinting: drobne, zwyczajne szczegóły twojego urządzenia, łączone aż ich zestaw stanie się na tyle rzadki, że wskaże z powrotem na ciebie.
+
+Loupe pozwala ci samodzielnie zobaczyć te szczegóły. Odczytuje te same publiczne API systemu iOS, których używają aplikacje innych firm, pokazując surowe dane i wyjaśniając, dlaczego mają znaczenie.
+
+CO MOŻESZ ZBADAĆ
+Trackery nie potrzebują twojego imienia, adresu e-mail ani lokalizacji, żeby cię rozpoznać. Twój region, języki, ustawienia, pamięć i czujniki tworzą wzorzec na tyle charakterystyczny, że można cię śledzić w sieci. Loupe zbiera te odczyty w jednym miejscu, więc widzisz dokładnie, czym się dzielisz.
+
+TRZY POZIOMY DOSTĘPU
+Loupe porządkuje każdy odczyt według tego, ile dostępu wymaga:
+
+- Pasywny: czytelny dla każdej aplikacji bez żadnego pytania, od strefy czasowej i języków klawiatury po baterię i pamięć.
+- Wymaga zgody: odczyty, które wywołują pytanie systemu iOS, jak lokalizacja, kontakty, zdjęcia i ruch.
+- Zaawansowany: boczne kanały, na które pozwalają publiczne API, jak sprawdzanie, które aplikacje masz zainstalowane, testy graficzne w ukrytej przeglądarce i ślad, który przetrwa ponowną instalację aplikacji.
+
+NIC NIE OPUSZCZA TWOJEGO IPHONE'A
+Loupe odczytuje wszystko na twoim urządzeniu i tam to zostaje. Nic nie jest przesyłane, synchronizowane ani udostępniane, dopóki sam tego nie wyeksportujesz. Nie ma kont ani analityki.
+
+KILKA RZECZY, KTÓRE MOŻESZ ZOBACZYĆ
+- Region, języki i ustawienia, które zdradzają, gdzie mieszkasz i podróżujesz
+- Szczegóły ekranu, grafiki, pamięci i baterii
+- Nazwa sparowanego akcesorium, która często zdradza twoje własne imię
+- Które popularne aplikacje masz zainstalowane, ustalone bez żadnej zgody
+- Dokładna sekunda, w której urządzenie zostało skonfigurowane lub ostatnio wymazane
+
+Loupe jest tworzona przez Mysk, zespół badaczy bezpieczeństwa. Ujawnia powierzchnię śledzenia twojego iPhone'a, abyś mógł zdecydować, co z tym zrobić.

@@ -22,7 +22,7 @@ struct BluetoothProvider: SignalProvider {
                     "peripherals",
                     category: category,
                     name: String(localized: "BLE peripherals (5s scan)", comment: "Signal card name in the Bluetooth category — names and signal strength of BLE peripherals found during a 5-second scan."),
-                    value: "Bluetooth unavailable",
+                    value: String(localized: "Bluetooth unavailable", comment: "Placeholder value in the Bluetooth category shown when Bluetooth is powered off or unavailable."),
                     rationale: String(localized: "BLE device names and signal strength discovered during a brief scan.", comment: "Signal card rationale beneath the BLE peripherals value."))
             ]
         }

@@ -4,6 +4,9 @@
 # Common usage:
 #   bundle exec fastlane metadata             # preview, then upload App Store text metadata
 #   bundle exec fastlane metadata force:true  # upload without the interactive preview (CI)
+#   bundle exec fastlane release_notes        # upload only the What's New text for the current version
+
+require "tmpdir"
 
 default_platform(:ios)
 
@@ -15,6 +18,42 @@ platform :ios do
     # `force: false` (default) renders an HTML preview and asks for confirmation
     # before anything is sent. Pass `force:true` for non-interactive / CI runs.
     deliver(force: options.fetch(:force, false))
+  end
+
+  desc "Upload only the What's New (release notes) for the current version to App Store Connect."
+  lane :release_notes do |options|
+    api_key
+
+    # `deliver` uploads every *.txt it finds in the metadata folder, and
+    # `skip_metadata: true` would skip the release notes too. To touch ONLY the
+    # What's New field (leaving name, subtitle, keywords, description, etc. as
+    # they are), read each locale's release_notes.txt into a hash, then point
+    # deliver at an empty metadata folder and pass the notes directly.
+    metadata_dir = File.expand_path("../app-store/metadata", __dir__)
+    notes = Dir.glob(File.join(metadata_dir, "*", "release_notes.txt")).each_with_object({}) do |path, hash|
+      hash[File.basename(File.dirname(path))] = File.read(path)
+    end
+    UI.user_error!("No release_notes.txt files found under #{metadata_dir}") if notes.empty?
+
+    # Attach the notes to the version currently being prepared. Read the marketing
+    # version from the project so this lane stays correct across releases.
+    version = get_version_number(xcodeproj: "code/Loupe.xcodeproj", target: "Loupe")
+
+    Dir.mktmpdir do |empty_metadata|
+      deliver(
+        metadata_path: empty_metadata,
+        release_notes: notes,
+        app_version: version,
+        skip_binary_upload: true,
+        skip_screenshots: true,
+        skip_metadata: false,
+        submit_for_review: false,
+        automatic_release: false,
+        run_precheck_before_submit: false,
+        precheck_include_in_app_purchases: false,
+        force: options.fetch(:force, false)
+      )
+    end
   end
 
   desc "Capture localized App Store screenshots on the simulator (reads fastlane/Snapfile)."

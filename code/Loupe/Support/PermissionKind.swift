@@ -48,13 +48,13 @@ enum PermissionKind: String, Codable, Sendable, CaseIterable, Identifiable {
         case .camera:
             return String(localized: "The list of cameras on your \(PlatformDevice.localizedModel), with their focal lengths and apertures, often pinpoints the exact model.", comment: "Educational paragraph shown on the camera permission gate explaining what the permission can leak. %@ is the device model name (e.g., iPhone, iPad).")
         case .bluetooth:
-            return String(localized: "Scanning for nearby Bluetooth devices reveals the speakers, headphones, watches, and other gear around you — often including their owners' names.", comment: "Educational paragraph shown on the bluetooth permission gate explaining what the permission can leak.")
+            return String(localized: "Scanning for nearby Bluetooth devices reveals the speakers, headphones, watches, and other gear around you, often including their owners' names.", comment: "Educational paragraph shown on the bluetooth permission gate explaining what the permission can leak.")
         case .localNetwork:
             return String(localized: "Bonjour discovery lists the speakers, TVs, printers, and other devices on your Wi-Fi network. That inventory is often unique to your home.", comment: "Educational paragraph shown on the local network permission gate explaining what the permission can leak.")
         case .contacts:
             return String(localized: "The number of contacts and the labels you use (Mom, Spouse, Work) hint at your social circle and relationships.", comment: "Educational paragraph shown on the contacts permission gate explaining what the permission can leak.")
         case .photos:
-            return String(localized: "Photo counts, album names, and the geotags embedded in your photos can reveal where you've been and where you spend most of your time — without an app needing to open a single image.", comment: "Educational paragraph shown on the photos permission gate explaining what the permission can leak.")
+            return String(localized: "Photo counts, album names, and the geotags embedded in your photos can reveal where you've been and where you spend most of your time, without an app needing to open a single image.", comment: "Educational paragraph shown on the photos permission gate explaining what the permission can leak.")
         case .calendar:
             return String(localized: "The number of events, the calendars you sync, and the sources behind them (iCloud, Exchange, Google) reflect your routine and the services you use.", comment: "Educational paragraph shown on the calendar permission gate explaining what the permission can leak.")
         case .reminders:

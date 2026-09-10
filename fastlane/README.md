@@ -23,6 +23,14 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 Upload App Store text metadata (name, subtitle, keywords, promo text, description) to App Store Connect.
 
+### ios release_notes
+
+```sh
+[bundle exec] fastlane ios release_notes
+```
+
+Upload only the What's New (release notes) for the current version to App Store Connect.
+
 ### ios screenshots
 
 ```sh

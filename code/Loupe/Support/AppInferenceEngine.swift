@@ -9,6 +9,7 @@
 
 import Foundation
 
+@MainActor
 enum AppInferenceEngine {
 
     struct Category {
@@ -98,9 +99,11 @@ enum AppInferenceEngine {
     }
 
     static func infer(from detectedApps: Set<String>) -> [NarrativeItem] {
-        categories.compactMap { category in
+        var covered = Set<String>()
+        var items = categories.compactMap { category -> NarrativeItem? in
             let matched = category.apps.filter { detectedApps.contains($0) }
             guard matched.count >= category.threshold else { return nil }
+            covered.formUnion(matched)
             return NarrativeItem(
                 id: category.id,
                 symbol: category.symbol,
@@ -108,5 +111,25 @@ enum AppInferenceEngine {
                 basis: String(localized: "Inferred from \(ListFormatter.localizedString(byJoining: matched)) being installed.", comment: "Caption beneath the inference card on the fingerprint summary sheet. %@ is an Oxford-comma-joined list of app names.")
             )
         }
+        if let remaining = remainingItem(from: detectedApps, covered: covered) {
+            items.append(remaining)
+        }
+        return items
+    }
+
+    /// Builds a card listing detected apps that didn't contribute to any
+    /// inference that fired, so the user still sees the rest of what was
+    /// probed. Apps stay in the probe-list order for a stable readout.
+    private static func remainingItem(from detectedApps: Set<String>, covered: Set<String>) -> NarrativeItem? {
+        let remaining = InstalledAppsProvider.probes
+            .map(\.name)
+            .filter { detectedApps.contains($0) && !covered.contains($0) }
+        guard !remaining.isEmpty else { return nil }
+        return NarrativeItem(
+            id: "inference.other",
+            symbol: "square.grid.2x2",
+            headline: String(localized: "You have a few other apps installed, too.", comment: "Headline for the card listing detected apps that didn't fit any behavioral inference. Shown on the installed-apps onboarding page and the fingerprint summary sheet."),
+            basis: String(localized: "We also spotted \(ListFormatter.localizedString(byJoining: remaining)). Each one isn't telling on its own, but it still adds to your fingerprint.", comment: "Caption beneath the remaining-apps card. %@ is an Oxford-comma-joined list of app names that didn't fit any inference.")
+        )
     }
 }

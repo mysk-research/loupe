@@ -66,7 +66,7 @@ struct SystemInfoProvider: SignalProvider {
                 "lockdownMode",
                 category: category,
                 name: String(localized: "Lockdown Mode", comment: "Signal card name in the System Info category — whether Apple's Lockdown Mode is turned on."),
-                value: lockdownEnabled ? "Enabled" : "Not enabled",
+                value: lockdownEnabled ? String(localized: "Enabled", comment: "Lockdown Mode signal value in the System Info category — shown when Lockdown Mode is turned on.") : String(localized: "Not enabled", comment: "Lockdown Mode signal value in the System Info category — shown when Lockdown Mode is turned off."),
                 rationale:
                     String(localized: "Whether you have \(PlatformDevice.systemName) Lockdown Mode turned on.", comment: "Signal card rationale beneath the Lockdown Mode value. %@ is the OS name (iOS, iPadOS, macOS).")
             ))

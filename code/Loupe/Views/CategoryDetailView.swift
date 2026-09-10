@@ -13,6 +13,8 @@ struct CategoryDetailView: View {
     let category: SignalCategory
     @Bindable var store: CategoryStore
 
+    @State private var showConsentPrompt = false
+
     var body: some View {
         let loadState = store.loadState(for: category)
         let signals = store.signals(for: category)
@@ -22,7 +24,7 @@ struct CategoryDetailView: View {
                 PermissionGateView(
                     category: category,
                     loadState: loadState,
-                    onEnable: { Task { await store.enableAndRefresh(category: category) } }
+                    onEnable: { Task { await enableAndRefresh() } }
                 )
             } else {
                 signalList(signals: signals)
@@ -31,6 +33,21 @@ struct CategoryDetailView: View {
         .navigationTitle(category.title)
         .toolbarTitleDisplayMode(.inline)
         .toolbar { toolbarContent(loadState: loadState) }
+        .alert(
+            category.collectionConsent?.promptTitle ?? "",
+            isPresented: $showConsentPrompt
+        ) {
+            if let consent = category.collectionConsent {
+                Button(consent.acceptLabel) {
+                    respond(to: consent, accepted: true)
+                }
+                Button(consent.declineLabel, role: .cancel) {
+                    respond(to: consent, accepted: false)
+                }
+            }
+        } message: {
+            Text(category.collectionConsent?.promptMessage ?? "")
+        }
         .task {
             if category.sensitivity != .permissioned, loadState == .idle {
                 await store.refresh(category: category)
@@ -55,7 +72,7 @@ struct CategoryDetailView: View {
                 Button {
                     Task {
                         if category.sensitivity == .permissioned {
-                            await store.enableAndRefresh(category: category)
+                            await enableAndRefresh()
                         } else {
                             await store.refresh(category: category)
                         }
@@ -82,6 +99,11 @@ struct CategoryDetailView: View {
                 Text(category.sensitivity.blurb)
                     .font(.caption)
             }
+            if let consent = category.collectionConsent {
+                ConsentToggleSection(consent: consent, onEnable: {
+                    Task { await store.refresh(category: category) }
+                })
+            }
         }
         .platformInsetGroupedListStyle()
     }
@@ -95,6 +117,25 @@ struct CategoryDetailView: View {
                 .font(.subheadline)
                 .foregroundStyle(.primary)
         }
+    }
+
+    /// Enables a permissioned category. If the category asks for an
+    /// app-level consent that hasn't been answered yet, a one-time dialog
+    /// is shown before the first collection.
+    private func enableAndRefresh() async {
+        guard let consent = category.collectionConsent, !consent.hasResponded else {
+            await store.enableAndRefresh(category: category)
+            return
+        }
+        if await store.requestPermission(for: category) {
+            showConsentPrompt = true
+        }
+    }
+
+    private func respond(to consent: CollectionConsent, accepted: Bool) {
+        consent.isEnabled = accepted
+        consent.hasResponded = true
+        Task { await store.refresh(category: category) }
     }
 
     private func shouldShowGate(loadState: CategoryStore.LoadState) -> Bool {
@@ -111,6 +152,41 @@ struct CategoryDetailView: View {
             store.stopLive(category: category)
         } else {
             store.startLive(category: category)
+        }
+    }
+}
+
+// MARK: - Consent Toggle
+
+/// List section with a toggle for a category's app-level consent.
+/// Turning it on triggers a fresh collection right away. Turning it off
+/// keeps the values already on screen and only affects the next refresh.
+private struct ConsentToggleSection: View {
+    let consent: CollectionConsent
+    let onEnable: () -> Void
+
+    @AppStorage private var isEnabled: Bool
+
+    init(consent: CollectionConsent, onEnable: @escaping () -> Void) {
+        self.consent = consent
+        self.onEnable = onEnable
+        _isEnabled = AppStorage(wrappedValue: false, consent.enabledKey)
+    }
+
+    var body: some View {
+        Section {
+            Toggle(isOn: $isEnabled) {
+                Label(consent.toggleLabel, systemImage: consent.toggleSymbol)
+            }
+        } footer: {
+            Text(consent.toggleFooter)
+                .font(.caption)
+        }
+        .onChange(of: isEnabled) {
+            consent.hasResponded = true
+            if isEnabled {
+                onEnable()
+            }
         }
     }
 }

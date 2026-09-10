@@ -148,18 +148,26 @@ final class CategoryStore {
 
     func enableAndRefresh(category: SignalCategory) async {
         guard !isMock else { return }
-        guard let permission = category.permission else {
+        if await requestPermission(for: category) {
             await refresh(category: category)
-            return
         }
+    }
+
+    /// Requests the category's permission and records the outcome.
+    /// Returns true when the resulting authorization is usable. Categories
+    /// without a permission are always usable.
+    func requestPermission(for category: SignalCategory) async -> Bool {
+        guard !isMock else { return false }
+        guard let permission = category.permission else { return true }
         loadStates[category] = .loading
         let authorization = await permissionCenter.request(permission)
         permissionStates[permission] = authorization
         if authorization.isUsable {
-            await refresh(category: category)
+            return true
         } else {
             signals[category] = []
             loadStates[category] = .denied(authorization.displayName)
+            return false
         }
     }
 

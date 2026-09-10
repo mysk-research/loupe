@@ -60,7 +60,7 @@ enum FingerprintNarrative {
 
     static func uptimeString(from boot: Date, to now: Date) -> String {
         let interval = max(0, now.timeIntervalSince(boot))
-        return uptimeFormatter.string(from: interval) ?? "\(Int(interval)) seconds"
+        return uptimeFormatter.string(from: interval) ?? String(localized: "\(Int(interval)) seconds", comment: "Fallback uptime duration when the system formatter is unavailable. %lld is a whole number of seconds.")
     }
 
     private static let uptimeFormatter: DateComponentsFormatter = {
@@ -372,17 +372,50 @@ enum FingerprintNarrative {
         TimeZoneCountries.countryCode(for: tz.identifier)
     }
 
+    // Apple derives a freshly paired accessory's name from the owner's Apple
+    // Account first name, formatted per the system language at pairing time.
+    // The grammar differs by locale, so we try each known shape in priority
+    // order and return the first owner name we can extract. Matching is
+    // language-agnostic on purpose: an accessory may have been named under a
+    // different system language than the phone is set to right now.
+    private static let ownerNamePatterns: [(pattern: String, caseInsensitive: Bool)] = [
+        // English possessive: "Talal's AirPods".
+        (#"^([\p{Lu}][\p{L}'’‘\-]*)['’‘]s\s"#, false),
+        // Turkish possessive: "Talal'ın AirPods'u" (apostrophe + vowel-harmony suffix).
+        (#"^(\p{L}[\p{L}\-]*)['’](?:ın|in|un|ün|nın|nin|nun|nün)\s"#, true),
+        // CJK particle: Japanese "TalalのAirPods", Chinese "Talal的AirPods".
+        (#"^(\S.{0,23}?)(?:の|的)\S"#, false),
+        // Romance / German / Vietnamese connector with the name at the end:
+        // "AirPods de Talal" (es/fr/pt), "AirPods di Talal" (it), "AirPods d'Talal" (fr),
+        // "AirPods von Talal" (de), "AirPods của Talal" (vi).
+        (#"(?:\sde\s|\sdi\s|\sd['’]|\svon\s|\scủa\s)([\p{Lu}][\p{L}'’‘\-]*(?:\s[\p{Lu}][\p{L}'’‘\-]*)?)\s*$"#, false),
+        // German bare genitive, gated on a known Apple audio noun: "Talals AirPods".
+        (#"^([\p{Lu}][\p{L}\-]+)s\s(?=AirPods|Beats|EarPods|Powerbeats)"#, false),
+        // Arabic: "AirPods الخاصة بـTalal".
+        (#"الخاصة\s*بـ?\s*(\S+)\s*$"#, false),
+    ]
+
     private static func ownerName(in portName: String) -> String? {
-        let pattern = #"^([\p{Lu}][\p{L}'’‘\-]*)['’‘]s\s"#
+        for entry in ownerNamePatterns {
+            if let name = firstCapture(of: entry.pattern, in: portName, caseInsensitive: entry.caseInsensitive) {
+                return name
+            }
+        }
+        return nil
+    }
+
+    private static func firstCapture(of pattern: String, in string: String, caseInsensitive: Bool) -> String? {
+        let options: NSRegularExpression.Options = caseInsensitive ? [.caseInsensitive] : []
         guard
-            let regex = try? NSRegularExpression(pattern: pattern),
+            let regex = try? NSRegularExpression(pattern: pattern, options: options),
             let match = regex.firstMatch(
-                in: portName,
-                range: NSRange(portName.startIndex..., in: portName)),
+                in: string,
+                range: NSRange(string.startIndex..., in: string)),
             match.numberOfRanges >= 2,
-            let range = Range(match.range(at: 1), in: portName)
+            let range = Range(match.range(at: 1), in: string)
         else { return nil }
-        return String(portName[range])
+        let captured = string[range].trimmingCharacters(in: .whitespaces)
+        return captured.isEmpty ? nil : captured
     }
 
     private static func is24Hour(_ cycle: Locale.HourCycle) -> Bool {

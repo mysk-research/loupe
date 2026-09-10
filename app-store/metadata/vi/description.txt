@@ -1,0 +1,25 @@
+Bạn có bao giờ thắc mắc vì sao các nhà quảng cáo nhận ra bạn trên khắp các ứng dụng và trang web? Thường thì đó là do fingerprinting: những chi tiết nhỏ, bình thường về thiết bị của bạn, được kết hợp lại cho đến khi tổ hợp đó đủ hiếm để chỉ ngược về bạn.
+
+Loupe cho phép bạn tự mình thấy những chi tiết đó. Nó đọc chính những API iOS công khai mà các ứng dụng bên thứ ba sử dụng, hiển thị dữ liệu thô và giải thích vì sao chúng quan trọng.
+
+NHỮNG GÌ BẠN CÓ THỂ KHÁM PHÁ
+Các trình theo dõi không cần tên, email hay vị trí của bạn để nhận ra bạn. Khu vực, ngôn ngữ, cài đặt, dung lượng lưu trữ và cảm biến của bạn tạo nên một mẫu hình đủ đặc trưng để theo bạn trên mạng. Loupe gom những thông tin này về một nơi, để bạn thấy chính xác mình đang chia sẻ những gì.
+
+BA MỨC ĐỘ TRUY CẬP
+Loupe sắp xếp mọi thông tin theo mức độ truy cập mà nó cần:
+
+- Thụ động: bất kỳ ứng dụng nào cũng đọc được mà không cần hỏi, từ múi giờ và ngôn ngữ bàn phím cho đến pin và dung lượng lưu trữ.
+- Cần quyền: những thông tin kích hoạt lời nhắc của iOS, như vị trí, danh bạ, ảnh và chuyển động.
+- Nâng cao: những kênh phụ mà API công khai cho phép, như kiểm tra bạn đã cài ứng dụng nào, kiểm tra đồ họa trong một trình duyệt ẩn, và một dấu vết tồn tại qua việc cài lại ứng dụng.
+
+KHÔNG GÌ RỜI KHỎI IPHONE CỦA BẠN
+Loupe đọc mọi thứ trên thiết bị của bạn và giữ lại ở đó. Không gì được tải lên, đồng bộ hay chia sẻ trừ khi chính bạn xuất ra. Không có tài khoản và không có công cụ phân tích.
+
+MỘT VÀI THỨ BẠN CÓ THỂ XEM
+- Khu vực, ngôn ngữ và cài đặt gợi ý nơi bạn sống và đi lại
+- Chi tiết về màn hình, đồ họa, dung lượng lưu trữ và pin
+- Tên trên một phụ kiện đã ghép đôi, thường để lộ chính tên của bạn
+- Những ứng dụng phổ biến bạn đã cài, được tìm ra mà không cần bất kỳ quyền nào
+- Giây chính xác mà thiết bị của bạn được thiết lập hoặc xóa lần cuối
+
+Loupe được tạo ra bởi Mysk, một nhóm nghiên cứu bảo mật. Nó phơi bày bề mặt theo dõi của iPhone của bạn, để bạn quyết định sẽ làm gì với điều đó.

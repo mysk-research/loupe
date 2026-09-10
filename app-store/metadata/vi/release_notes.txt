@@ -1,0 +1,5 @@
+- Ảnh giờ đây hỏi quyền của bạn trước khi tra cứu tên địa điểm cho vị trí ảnh của bạn.
+- Hỗ trợ ngôn ngữ mới: tiếng Hàn, tiếng Ba Lan, tiếng Ý và tiếng Việt.
+- Đã sửa lược đồ URL của Steam, cảm ơn @Solarphlare.
+- Tinh chỉnh nhỏ về giao diện.
+- Tinh chỉnh nhỏ về bản địa hóa.

@@ -21,12 +21,16 @@ struct HomeView: View {
     @State private var collectingPassive = false
     @State private var showingAbout = false
     @State private var showingSummary = false
+    @Namespace private var transitionNamespace
 
     var body: some View {
         NavigationSplitView {
             List {
                 Section {
-                    IntroCardView(onShowSummary: { showingSummary = true })
+                    IntroCardView(
+                        onShowSummary: { showingSummary = true },
+                        transitionNamespace: transitionNamespace
+                    )
                         .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
@@ -55,8 +59,14 @@ struct HomeView: View {
             ContentUnavailableView("Select a category from the sidebar", systemImage: "doc.text.image.fill")
         }
         .platformInlineNavigationBarTitle()
-        .sheet(isPresented: $showingAbout) { AboutView() }
-        .sheet(isPresented: $showingSummary) { FingerprintSummaryView() }
+        .sheet(isPresented: $showingAbout) {
+            AboutView()
+                .compatibleZoomNavigationTransition(sourceID: TransitionID.about, in: transitionNamespace)
+        }
+        .sheet(isPresented: $showingSummary) {
+            FingerprintSummaryView()
+                .compatibleZoomNavigationTransition(sourceID: TransitionID.highlights, in: transitionNamespace)
+        }
         .task {
             if !collectingPassive && store.totalSignalCount == 0 {
                 await refreshPassive()
@@ -123,6 +133,7 @@ struct HomeView: View {
             } label: {
                 Label("About", systemImage: "info.circle")
             }
+            .compatibleZoomTransitionSource(id: TransitionID.about, in: transitionNamespace)
         }
         ToolbarItem(placement: .topBarTrailing) {
             ExportButton(store: store)
@@ -134,6 +145,7 @@ struct HomeView: View {
             } label: {
                 Label("About", systemImage: "info.circle")
             }
+            .compatibleZoomTransitionSource(id: TransitionID.about, in: transitionNamespace)
         }
         ToolbarItem(placement: .primaryAction) {
             ExportButton(store: store)
@@ -165,8 +177,14 @@ struct HomeView: View {
     }
 }
 
+private enum TransitionID: Hashable {
+    case about
+    case highlights
+}
+
 private struct IntroCardView: View {
     let onShowSummary: () -> Void
+    let transitionNamespace: Namespace.ID
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -187,8 +205,9 @@ private struct IntroCardView: View {
                 Text("See the Highlights")
                     .fontWeight(.semibold)
             }
-            .frame(maxWidth: .infinity)
             .compatibleProminentButtonStyle()
+            .compatibleZoomTransitionSource(id: TransitionID.highlights, in: transitionNamespace)
+            .frame(maxWidth: .infinity)
             .controlSize(.large)
             .accessibilityIdentifier("highlightsButton")
         }

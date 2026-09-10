@@ -1,0 +1,25 @@
+Ti sei mai chiesto come gli inserzionisti ti riconoscono tra app e siti web? Di solito è una questione di fingerprinting: piccoli dettagli ordinari sul tuo dispositivo, combinati finché il mix diventa abbastanza raro da ricondurre a te.
+
+Loupe ti permette di vedere quei dettagli di persona. Legge le stesse API pubbliche di iOS che usano le app di terze parti, mostrandoti i dati grezzi e spiegando perché contano.
+
+COSA PUOI ESPLORARE
+I tracker non hanno bisogno del tuo nome, della tua email o della tua posizione per riconoscerti. La tua area geografica, le lingue, le impostazioni, lo spazio di archiviazione e i sensori creano uno schema abbastanza distintivo da seguirti online. Loupe raccoglie queste letture in un unico posto, così puoi vedere esattamente cosa stai condividendo.
+
+TRE LIVELLI DI ACCESSO
+Loupe ordina ogni lettura in base a quanto accesso richiede:
+
+- Passivo: leggibile da qualsiasi app senza alcun permesso, dal fuso orario e le lingue della tastiera fino alla batteria e allo spazio di archiviazione.
+- Richiede permesso: letture che attivano una richiesta di iOS, come posizione, contatti, foto e movimento.
+- Avanzato: canali secondari che le API pubbliche consentono, come verificare quali app hai installato, controlli grafici in un browser nascosto e una traccia che sopravvive alla reinstallazione dell'app.
+
+NULLA LASCIA IL TUO IPHONE
+Loupe legge tutto sul tuo dispositivo e lo mantiene lì. Nulla viene caricato, sincronizzato o condiviso a meno che non lo esporti tu stesso. Non ci sono account né strumenti di analisi.
+
+ALCUNE COSE CHE PUOI GUARDARE
+- L'area geografica, le lingue e le impostazioni che suggeriscono dove vivi e viaggi
+- I dettagli di schermo, grafica, spazio di archiviazione e batteria
+- Il nome di un accessorio abbinato, che spesso rivela il tuo stesso nome
+- Quali app popolari hai installato, dedotto senza alcun permesso
+- L'istante esatto in cui il tuo dispositivo è stato configurato o cancellato l'ultima volta
+
+Loupe è realizzata da Mysk, un team di ricerca sulla sicurezza. Mette in luce la superficie di tracciamento del tuo iPhone, così puoi decidere cosa fare al riguardo.

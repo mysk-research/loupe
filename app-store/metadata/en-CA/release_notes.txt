@@ -1,0 +1,5 @@
+- Photos now asks for your permission before it looks up place names for your photo locations.
+- New language support: Korean, Polish, Italian, and Vietnamese.
+- Fixed the Steam URL scheme, thanks to @Solarphlare.
+- Small interface refinements.
+- Small localization refinements.

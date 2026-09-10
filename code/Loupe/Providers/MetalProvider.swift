@@ -20,7 +20,7 @@ struct MetalProvider: SignalProvider {
                     "unavailable",
                     category: category,
                     name: String(localized: "Metal", comment: "Signal card name in the Graphics & Metal category — placeholder shown when no default Metal device is available (e.g., simulator)."),
-                    value: "No default device",
+                    value: String(localized: "No default device", comment: "Placeholder value in the Graphics & Metal category shown when no default Metal device is available (e.g., simulator)."),
                     rationale: String(localized: "The simulator may not report a Metal GPU.", comment: "Signal card rationale beneath the Metal placeholder."))
             ]
         }
