@@ -13826,6 +13826,107 @@
         }
       }
     },
+    "Contacts country code" : {
+      "comment" : "Signal card name in the Locale & Region category — CNContactsUserDefaults.countryCode, the default country the Contacts framework reports (e.g., 'us').",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "رمز البلد في جهات الاتصال"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ländercode der Kontakte"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Código de país de Contactos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Code pays de Contacts"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Codice paese di Contatti"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "連絡先の国コード"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "연락처 국가 코드"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Kod kraju Kontaktów"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Código de país dos Contatos"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Código de país dos Contactos"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Код страны в Контактах"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Kişiler ülke kodu"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Код країни в Контактах"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Mã quốc gia của Danh bạ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "通讯录国家/地区代码"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "聯絡資訊國家/地區代碼"
+          }
+        }
+      }
+    },
     "Container count" : {
       "comment" : "Signal card name in the Contacts category — number of contact sources (e.g., iCloud, local, Exchange).",
       "localizations" : {
@@ -14728,6 +14829,107 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "CoreTelephony 是僅限 iOS 的框架。"
+          }
+        }
+      }
+    },
+    "Country code Contacts uses by default for phone numbers and addresses. Readable without Contacts permission." : {
+      "comment" : "Signal card rationale beneath the Contacts country code value.",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "رمز البلد الذي تستخدمه جهات الاتصال افتراضيًا لأرقام الهواتف والعناوين. يمكن قراءته دون إذن جهات الاتصال."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ländercode, den Kontakte standardmäßig für Telefonnummern und Adressen verwendet. Ohne Kontakte-Erlaubnis lesbar."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Código de país que Contactos usa por defecto para números de teléfono y direcciones. Se puede leer sin permiso de Contactos."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Code pays utilisé par défaut par Contacts pour les numéros de téléphone et les adresses. Lisible sans autorisation d'accès à Contacts."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Codice paese che Contatti usa di default per numeri di telefono e indirizzi. Leggibile senza autorizzazione per Contatti."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "連絡先が電話番号や住所にデフォルトで使う国コード。連絡先の許可がなくても読み取れます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "연락처가 전화번호와 주소에 기본으로 사용하는 국가 코드. 연락처 권한 없이도 읽을 수 있어요."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Kod kraju, którego Kontakty domyślnie używają dla numerów telefonów i adresów. Można go odczytać bez zezwolenia na dostęp do Kontaktów."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Código de país que o app Contatos usa por padrão para números de telefone e endereços. Pode ser lido sem permissão de Contatos."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Código de país que a app Contactos usa por predefinição para números de telefone e moradas. Pode ser lido sem permissão de Contactos."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Код страны, который Контакты по умолчанию используют для номеров телефонов и адресов. Читается без разрешения на доступ к Контактам."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Kişiler'in telefon numaraları ve adresler için saptanmış olarak kullandığı ülke kodu. Kişiler izni olmadan okunabilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Код країни, який Контакти типово використовують для номерів телефонів і адрес. Читається без дозволу на доступ до Контактів."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Mã quốc gia mà Danh bạ dùng mặc định cho số điện thoại và địa chỉ. Có thể đọc mà không cần quyền Danh bạ."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "通讯录默认用于电话号码和地址的国家/地区代码。无需通讯录权限即可读取。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "聯絡資訊預設用於電話號碼和地址的國家/地區代碼。無需聯絡資訊權限即可讀取。"
           }
         }
       }
