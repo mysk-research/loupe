@@ -7,6 +7,7 @@
 //  once you add preferred languages the count collapses further.
 //
 
+import Contacts
 import Foundation
 
 struct LocaleProvider: SignalProvider {
@@ -57,6 +58,17 @@ struct LocaleProvider: SignalProvider {
                 name: String(localized: "Time zone identifier", comment: "Signal card name in the Locale & Region category — TimeZone.identifier (e.g., 'Europe/Berlin')."),
                 value: tz.identifier,
                 rationale: String(localized: "Time zone identifier (e.g., `Europe/Berlin`).", comment: "Signal card rationale beneath the Time zone identifier value.")))
+        // CNContactsUserDefaults is readable without Contacts permission, so
+        // it sits here with the passive region signals rather than in the
+        // permission-gated Contacts category.
+        let contactsCountryCode = CNContactsUserDefaults.shared().countryCode
+        signals.append(
+            .make(
+                "contactsCountryCode",
+                category: category,
+                name: String(localized: "Contacts country code", comment: "Signal card name in the Locale & Region category — CNContactsUserDefaults.countryCode, the default country the Contacts framework reports (e.g., 'us')."),
+                value: contactsCountryCode.isEmpty ? "(none)" : contactsCountryCode,
+                rationale: String(localized: "Country code Contacts uses by default for phone numbers and addresses. Readable without Contacts permission.", comment: "Signal card rationale beneath the Contacts country code value.")))
         signals.append(
             .make(
                 "calendar",
